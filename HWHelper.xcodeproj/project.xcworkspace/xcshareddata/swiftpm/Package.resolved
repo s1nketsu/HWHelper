@@ -1,0 +1,15 @@
+{
+  "originHash" : "a93553fb02530fd8f29f0e2759ebcdd446582d93a3ae6349d9fa65d34e61b149",
+  "pins" : [
+    {
+      "identity" : "corelibrary",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/s1nketsu/CoreLibrary.git",
+      "state" : {
+        "branch" : "develop",
+        "revision" : "a62e29caed0b2eb241e838d3b0e2522cc4f3fdac"
+      }
+    }
+  ],
+  "version" : 3
+}
