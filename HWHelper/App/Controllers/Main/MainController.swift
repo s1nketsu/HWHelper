@@ -1,6 +1,6 @@
 import UIKit
 
-final class MainController: UIViewController {
+final class MainController: ViewController {
     
     // MARK: - Lifecycle
     

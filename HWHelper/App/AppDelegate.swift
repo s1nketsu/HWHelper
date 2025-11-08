@@ -1,3 +1,4 @@
+@_exported import CoreLibrary
 import UIKit
 
 @main

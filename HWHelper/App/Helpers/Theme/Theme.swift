@@ -1,14 +1,27 @@
 import UIKit
 
-enum Theme: Int {
+enum Theme: Int, CaseIterable {
     
     case light
     case dark
     case system
     
+    // MARK: - Properties
+    
     static var current: Theme { .init(rawValue: Settings.shared.theme) ?? .light }
     
-    var userInterfaceStyle: UIUserInterfaceStyle {
+    var stringValue: String {
+        switch self {
+        case .light:
+            "Светлая"
+        case .dark:
+            "Темная"
+        case .system:
+            "Системная"
+        }
+    }
+    
+    private var userInterfaceStyle: UIUserInterfaceStyle {
         switch self {
         case .light:
             .light
@@ -19,16 +32,7 @@ enum Theme: Int {
         }
     }
     
-//    var stringValue: String {
-//        switch self {
-//        case .light:
-//            "Light".localized
-//        case .dark:
-//            "Dark".localized
-//        case .system:
-//            "System".localized
-//        }
-//    }
+    // MARK: - Actions
     
     func apply() {
         Settings.shared.theme = rawValue
