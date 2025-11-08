@@ -12,7 +12,7 @@ final class Settings {
     // MARK: - Values
     
     @Settings.Value(key: themeKey)
-    var theme: Int = 0
+    var theme: String = "system"
     
     // MARK: - Init
     

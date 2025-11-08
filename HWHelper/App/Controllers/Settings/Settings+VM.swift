@@ -10,14 +10,14 @@ extension SettingsController {
         
         var rows: [Row] {
             [
-                .theme(.init(title: "Выбранная тема", subtitle: Theme.current.stringValue)),
+                .theme(.init(title: "Выбранная тема", subtitle: AppTheme.current.name)),
             ]
         }
         
         // MARK: - Actions
         
         func selectTheme(_ theme: Theme) {
-            theme.apply()
+            AppTheme.updateTheme(theme)
             reloadData?()
         }
     }

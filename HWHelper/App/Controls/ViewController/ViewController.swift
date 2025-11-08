@@ -1,12 +1,12 @@
 import UIKit
 
-open class ViewController: UIViewController {
+open class ViewController: BaseViewController {
     
     open override func viewDidLoad() {
         super.viewDidLoad()
         
         registerForTraitChanges([UITraitUserInterfaceStyle.self]) { (self: Self, previousTraitCollection: UITraitCollection) in
-            Theme.current.apply()
+            AppTheme.apply()
         }
     }
 }
