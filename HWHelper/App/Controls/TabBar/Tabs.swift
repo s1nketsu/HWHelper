@@ -3,6 +3,7 @@ import UIKit
 enum Tabs: Int, CaseIterable {
     
     case main
+    case settings
 }
 
 extension Tabs {
@@ -10,7 +11,9 @@ extension Tabs {
     var viewController: UIViewController {
         switch self {
         case .main:
-            MainController()
+            UINavigationController(rootViewController: MainController())
+        case .settings:
+            UINavigationController(rootViewController: SettingsController())
         }
     }
     
@@ -20,6 +23,12 @@ extension Tabs {
             .init(
                 title: "Главная",
                 image: .init(systemName: "house"),
+                tag: rawValue
+            )
+        case .settings:
+            .init(
+                title: "Настройки",
+                image: .init(systemName: "gear"),
                 tag: rawValue
             )
         }
