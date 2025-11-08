@@ -1,5 +1,5 @@
 {
-  "originHash" : "a93553fb02530fd8f29f0e2759ebcdd446582d93a3ae6349d9fa65d34e61b149",
+  "originHash" : "18b2cbbf6106907d21183b9690cef69722461cd47284e1a2fa486744127c0798",
   "pins" : [
     {
       "identity" : "corelibrary",
@@ -7,7 +7,16 @@
       "location" : "https://github.com/s1nketsu/CoreLibrary.git",
       "state" : {
         "branch" : "develop",
-        "revision" : "a62e29caed0b2eb241e838d3b0e2522cc4f3fdac"
+        "revision" : "3b06e0b4c81081a9e27f93f294c9f8f71274ee63"
+      }
+    },
+    {
+      "identity" : "lookinserver",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/QMUI/LookinServer/",
+      "state" : {
+        "revision" : "e553d1b689d147817dc54ad5c28fcff71e860101",
+        "version" : "1.2.8"
       }
     }
   ],
