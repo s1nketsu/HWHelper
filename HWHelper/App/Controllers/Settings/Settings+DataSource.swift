@@ -13,7 +13,7 @@ extension SettingsController {
     
     enum Row: nonisolated Hashable {
         
-        case theme(SettingsItemDM)
+        case theme(SettingsItemModel)
     }
     
     typealias DataSource = UITableViewDiffableDataSource<Section, Row>
@@ -22,9 +22,9 @@ extension SettingsController {
     func dataSource(tableView: UITableView) -> DataSource {
         .init(tableView: tableView) { tableView, indexPath, row in
             guard let cell = tableView.dequeueReusableCell(
-                withIdentifier: SettingsCell.reuseIdentifier,
+                withIdentifier: DefaultTableViewCell.reuseIdentifier,
                 for: indexPath
-            ) as? SettingsCell else { preconditionFailure() }
+            ) as? DefaultTableViewCell else { preconditionFailure() }
             
             switch row {
             case .theme(let model):

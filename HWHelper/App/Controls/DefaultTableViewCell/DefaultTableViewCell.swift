@@ -1,6 +1,6 @@
 import UIKit
 
-final class SettingsCell: UITableViewCell {
+final class DefaultTableViewCell: UITableViewCell {
     
     // MARK: - Views
     
@@ -15,8 +15,6 @@ final class SettingsCell: UITableViewCell {
         
         view.isLayoutMarginsRelativeArrangement = true
         view.layoutMargins = .init(top: 8, left: 16, bottom: 8, right: 0)
-        
-        view.translatesAutoresizingMaskIntoConstraints = false
         
         return view
     }()
@@ -68,11 +66,11 @@ final class SettingsCell: UITableViewCell {
         accessoryType = .disclosureIndicator
         
         contentView.addSubview(stackView)
-        NSLayoutConstraint.activate([
-            stackView.topAnchor.constraint(equalTo: contentView.topAnchor),
-            stackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            stackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            stackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
-        ])
+        stackView.layout(
+            topAnchor: contentView.topAnchor,
+            leadingAnchor: contentView.leadingAnchor,
+            trailingAnchor: contentView.trailingAnchor,
+            bottomAnchor: contentView.bottomAnchor
+        )
     }
 }

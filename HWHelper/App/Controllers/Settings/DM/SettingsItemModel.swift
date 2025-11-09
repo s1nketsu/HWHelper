@@ -2,7 +2,7 @@ import Foundation
 
 extension SettingsController {
     
-    struct SettingsItemDM {
+    struct SettingsItemModel {
         
         let id = UUID().uuidString
         
@@ -11,7 +11,7 @@ extension SettingsController {
     }
 }
 
-extension SettingsController.SettingsItemDM: Hashable {
+extension SettingsController.SettingsItemModel: Hashable {
     
     func hash(into hasher: inout Hasher) {
         hasher.combine(id)

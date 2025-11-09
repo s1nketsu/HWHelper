@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A361EE192EBFDA6E00206C75 /* LookinServer in Frameworks */ = {isa = PBXBuildFile; productRef = A361EE182EBFDA6E00206C75 /* LookinServer */; };
 		A3AFCFC62EB93A170023A0EA /* CoreLibrary in Frameworks */ = {isa = PBXBuildFile; productRef = A3AFCFC52EB93A170023A0EA /* CoreLibrary */; };
 /* End PBXBuildFile section */
 
@@ -41,6 +42,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A3AFCFC62EB93A170023A0EA /* CoreLibrary in Frameworks */,
+				A361EE192EBFDA6E00206C75 /* LookinServer in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -84,6 +86,7 @@
 			name = HWHelper;
 			packageProductDependencies = (
 				A3AFCFC52EB93A170023A0EA /* CoreLibrary */,
+				A361EE182EBFDA6E00206C75 /* LookinServer */,
 			);
 			productName = HWHelper;
 			productReference = A3AFCF872EB92F780023A0EA /* HWHelper.app */;
@@ -115,6 +118,7 @@
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
 				A3AFCFC42EB93A170023A0EA /* XCRemoteSwiftPackageReference "CoreLibrary" */,
+				A361EE172EBFDA6E00206C75 /* XCRemoteSwiftPackageReference "LookinServer" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = A3AFCF882EB92F780023A0EA /* Products */;
@@ -360,6 +364,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		A361EE172EBFDA6E00206C75 /* XCRemoteSwiftPackageReference "LookinServer" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/QMUI/LookinServer/";
+			requirement = {
+				kind = exactVersion;
+				version = 1.2.8;
+			};
+		};
 		A3AFCFC42EB93A170023A0EA /* XCRemoteSwiftPackageReference "CoreLibrary" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/s1nketsu/CoreLibrary.git";
@@ -371,6 +383,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		A361EE182EBFDA6E00206C75 /* LookinServer */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A361EE172EBFDA6E00206C75 /* XCRemoteSwiftPackageReference "LookinServer" */;
+			productName = LookinServer;
+		};
 		A3AFCFC52EB93A170023A0EA /* CoreLibrary */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = A3AFCFC42EB93A170023A0EA /* XCRemoteSwiftPackageReference "CoreLibrary" */;

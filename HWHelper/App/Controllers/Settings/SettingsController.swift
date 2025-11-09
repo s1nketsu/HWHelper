@@ -6,12 +6,8 @@ final class SettingsController: ViewController {
     
     private let viewModel = ViewModel()
     
-    private lazy var bind: Void = {
-        viewModel.reloadData = { [weak self] in
-            guard let self else { return }
-            
-            applySnapshot(dataSource: dataSource, rows: viewModel.rows)
-        }
+    private lazy var bind: Void = { [weak self] in
+        self?.viewModel.reloadData = { [weak self] in self?.setupContent() }
     }()
     
     // MARK: - Views
@@ -21,9 +17,7 @@ final class SettingsController: ViewController {
         
         view.delegate = self
         
-        view.register(SettingsCell.self, forCellReuseIdentifier: SettingsCell.reuseIdentifier)
-        
-        view.translatesAutoresizingMaskIntoConstraints = false
+        view.register(DefaultTableViewCell.self, forCellReuseIdentifier: DefaultTableViewCell.reuseIdentifier)
         
         return view
     }()
@@ -39,12 +33,13 @@ final class SettingsController: ViewController {
         
         setupNavigation()
         setupViews()
+        setupContent()
     }
     
     // MARK: - Setup
     
     private func setupNavigation() {
-        navigationController?.navigationBar.prefersLargeTitles = true
+        largeNavigationTitle = true
         
         title = "Настройки"
     }
@@ -53,40 +48,40 @@ final class SettingsController: ViewController {
         view.backgroundColor = .systemBackground
         
         view.addSubview(tableView)
-        NSLayoutConstraint.activate([
-            tableView.topAnchor.constraint(equalTo: view.topAnchor),
-            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-        ])
-        
+        tableView.layout(
+            topAnchor: view.topAnchor,
+            leadingAnchor: view.leadingAnchor,
+            trailingAnchor: view.trailingAnchor,
+            bottomAnchor: view.bottomAnchor
+        )
+    }
+    
+    private func setupContent() {
         applySnapshot(dataSource: dataSource, rows: viewModel.rows)
     }
     
-    func showSelectTheme(sourceView: UIView) {
-        AlertController
-            .show(
-                title: "Выберите тему приложения",
-                prefferedStyle: .actionSheet,
-                actions: [
-                    .init(title: "Светлая") { [weak self] _ in self?.viewModel.selectTheme(.light) },
-                    .init(title: "Темная") { [weak self] _ in self?.viewModel.selectTheme(.dark) },
-                    .init(title: "Системная") { [weak self] _ in self?.viewModel.selectTheme(.system) },
-                ],
-                on: self
-            )
+    func showSelectTheme() {
+        Alert.show(
+            title: "Выберите тему приложения",
+            prefferedStyle: .actionSheet,
+            actions: [
+                .init(title: "Светлая") { [weak self] _ in self?.viewModel.selectTheme(.light) },
+                .init(title: "Темная") { [weak self] _ in self?.viewModel.selectTheme(.dark) },
+                .init(title: "Системная") { [weak self] _ in self?.viewModel.selectTheme(.system) },
+            ],
+            on: self
+        )
     }
 }
 
 extension SettingsController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard let cellKind = dataSource.itemIdentifier(for: indexPath),
-              let sourceView = tableView.cellForRow(at: indexPath)?.contentView else { return }
+        guard let cellKind = dataSource.itemIdentifier(for: indexPath) else { return }
         
         switch cellKind {
         case .theme:
-            showSelectTheme(sourceView: sourceView)
+            showSelectTheme()
         }
         
         tableView.deselectRow(at: indexPath, animated: true)
