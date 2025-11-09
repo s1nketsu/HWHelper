@@ -26,11 +26,24 @@ final class CoreDataManager {
     
     // MARK: - Actions
     
-    
-    func save() {
-        guard context.hasChanges else { return }
+    @discardableResult
+    func save() -> Bool {
+        guard context.hasChanges else { return false }
         
-        try? context.save()
+        do {
+            try context.save()
+            
+            return true
+        } catch {
+            print("Failed to save context")
+            
+            return false
+        }
+    }
+    
+    func delete(object: CDObject) {
+        context.delete(object)
+        save()
     }
 }
 
