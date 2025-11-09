@@ -31,15 +31,19 @@ extension MainController {
                 .map { .item($0) }
         }
         
-        private var students = [StudentModel]()
+        private var students = [StudentModel]() {
+            didSet {
+                reloadData()
+            }
+        }
         
         // MARK: - Actions
         
         func fetchData() {
-            let savedStudents: [CDStudent] = CDStudent.findAll(sortDescriptors: [.init(key: "lastChangedDate", ascending: true)])
+            let sortDescriptors: [NSSortDescriptor] = [.init(key: "lastChangedDate", ascending: true)]
+            let savedStudents: [CDStudent] = CDStudent.findAll(sortDescriptors: sortDescriptors)
             
             students = savedStudents.map { .init(object: $0) }
-            reloadData()
         }
         
         func updatePin(_ pinned: Bool, model: StudentModel) {
@@ -48,8 +52,6 @@ extension MainController {
             var model = students.remove(at: index)
             model.update(pinned: pinned)
             students.insert(model, at: index)
-            
-            reloadData()
         }
         
         func deleteStudent(model: StudentModel) {
@@ -57,7 +59,6 @@ extension MainController {
             
             CoreDataManager.shared.delete(object: object)
             students.removeAll { $0.id == model.id }
-            reloadData()
         }
         
         func createMock() {
@@ -72,7 +73,6 @@ extension MainController {
             model.save()
             
             students.append(model)
-            reloadData()
         }
     }
 }

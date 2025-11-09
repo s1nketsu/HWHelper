@@ -1,5 +1,10 @@
 import UIKit
 
+private extension Constants {
+    
+    static let layoutOffset: UIEdgeInsets = .init(vertical: 2, horizontal: 16)
+}
+
 final class MainHeaderView: UIView {
     
     // MARK: - Views
@@ -35,7 +40,7 @@ final class MainHeaderView: UIView {
             leadingAnchor: leadingAnchor,
             trailingAnchor: trailingAnchor,
             bottomAnchor: bottomAnchor,
-            offset: .init(vertical: 2, horizontal: 16)
+            offset: Constants.layoutOffset
         )
     }
 }

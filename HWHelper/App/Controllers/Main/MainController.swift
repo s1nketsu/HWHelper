@@ -1,5 +1,10 @@
 import UIKit
 
+private extension Constants {
+    
+    static let rowHeight: CGFloat = 60
+}
+
 final class MainController: ViewController {
     
     // MARK: - VM
@@ -12,7 +17,7 @@ final class MainController: ViewController {
         let view = UITableView(frame: .zero, style: .insetGrouped)
         
         view.delegate = self
-        view.rowHeight = 60
+        view.rowHeight = Constants.rowHeight
         
         view.register(DefaultTableViewCell.self, forCellReuseIdentifier: DefaultTableViewCell.reuseIdentifier)
         
