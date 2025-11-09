@@ -4,26 +4,33 @@ extension MainController {
     
     struct StudentModel {
         
+        // MARK: - Properties
+        
         private(set) var id: String
         private(set) var category: StudentCategory
         private(set) var pinned: Bool
         private(set) var title: String
         private(set) var templateText: String
+        private(set) var lastChangedDate: Date
         
         private(set) var object: CDStudent?
+        
+        // MARK: - Init
         
         init(
             id: String = UUID().uuidString,
             category: StudentCategory,
             pinned: Bool = false,
             title: String,
-            templateText: String
+            templateText: String,
+            lastChangedDate: Date = .init()
         ) {
             self.id = id
             self.category = category
             self.pinned = pinned
             self.title = title
             self.templateText = templateText
+            self.lastChangedDate = lastChangedDate
             self.object = nil
         }
         
@@ -33,8 +40,11 @@ extension MainController {
             self.pinned = object.pinned
             self.title = object.title
             self.templateText = object.templateText
+            self.lastChangedDate = object.lastChangedDate
             self.object = object
         }
+        
+        // MARK: - Actions
         
         mutating func save() {
             object = CDStudent.createEntity(model: self)
@@ -67,10 +77,14 @@ extension MainController {
                 self.templateText = templateText
             }
             
+            lastChangedDate = Date()
+            
             CDStudent.updateEntity(model: self)
         }
     }
 }
+
+// MARK: - Hashable
 
 extension MainController.StudentModel: Hashable {
     

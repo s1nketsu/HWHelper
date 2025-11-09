@@ -17,6 +17,7 @@ final class CDStudent: CDObject {
     @NSManaged var pinned: Bool
     @NSManaged var title: String
     @NSManaged var templateText: String
+    @NSManaged var lastChangedDate: Date
 }
 
 extension CDStudent {
@@ -30,6 +31,7 @@ extension CDStudent {
         object.pinned = model.pinned
         object.title = model.title
         object.templateText = model.templateText
+        object.lastChangedDate = model.lastChangedDate
         
         guard CoreDataManager.shared.save() else { return nil }
         
@@ -45,6 +47,7 @@ extension CDStudent {
         object.pinned = model.pinned
         object.title = model.title
         object.templateText = model.templateText
+        object.lastChangedDate = model.lastChangedDate
         
         return CoreDataManager.shared.save()
     }

@@ -13,21 +13,21 @@ extension MainController {
         var pinnedRows: [Row] {
             students
                 .filter { $0.pinned }
-                .sorted { $0.title > $1.title }
+                .sorted { $0.lastChangedDate > $1.lastChangedDate }
                 .map { .item($0) }
         }
         
         var groupRows: [Row] {
             students
                 .filter { !$0.pinned && $0.category == .group }
-                .sorted { $0.title > $1.title }
+                .sorted { $0.lastChangedDate > $1.lastChangedDate }
                 .map { .item($0) }
         }
         
         var individualRows: [Row] {
             students
                 .filter { !$0.pinned && $0.category == .individual }
-                .sorted { $0.title > $1.title }
+                .sorted { $0.lastChangedDate > $1.lastChangedDate }
                 .map { .item($0) }
         }
         
@@ -36,7 +36,7 @@ extension MainController {
         // MARK: - Actions
         
         func fetchData() {
-            let savedStudents: [CDStudent] = CDStudent.findAll(sortDescriptors: [.init(key: "title", ascending: true)])
+            let savedStudents: [CDStudent] = CDStudent.findAll(sortDescriptors: [.init(key: "lastChangedDate", ascending: true)])
             
             students = savedStudents.map { .init(object: $0) }
             reloadData()
