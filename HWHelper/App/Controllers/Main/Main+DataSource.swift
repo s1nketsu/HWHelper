@@ -9,13 +9,24 @@ extension MainController {
         case pinned
         case groups
         case individuals
+        
+        var headerTitle: String {
+            switch self {
+            case .pinned:
+                "Закрепленное"
+            case .groups:
+                "Группы"
+            case .individuals:
+                "Индивидуалы"
+            }
+        }
     }
     
     // MARK: - Rows
     
     enum Row: nonisolated Hashable {
         
-        case item(MainItemDM)
+        case item(StudentModel)
     }
     
     typealias DataSource = UITableViewDiffableDataSource<Section, Row>

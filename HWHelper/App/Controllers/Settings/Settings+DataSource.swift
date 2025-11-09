@@ -13,7 +13,7 @@ extension SettingsController {
     
     enum Row: nonisolated Hashable {
         
-        case theme(SettingsItemDM)
+        case theme(SettingsItemModel)
     }
     
     typealias DataSource = UITableViewDiffableDataSource<Section, Row>

@@ -1,15 +1,17 @@
 import Foundation
 
-extension MainController {
+extension SettingsController {
     
-    struct MainItemDM {
+    struct SettingsItemModel {
         
         let id = UUID().uuidString
+        
         let title: String
+        let subtitle: String?
     }
 }
 
-extension MainController.MainItemDM: Hashable {
+extension SettingsController.SettingsItemModel: Hashable {
     
     func hash(into hasher: inout Hasher) {
         hasher.combine(id)

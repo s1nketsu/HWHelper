@@ -12,7 +12,7 @@ final class MainController: ViewController {
         let view = UITableView(frame: .zero, style: .insetGrouped)
         
         view.delegate = self
-        view.rowHeight = Constants.defaultCellHeight
+        view.rowHeight = 60
         
         view.register(DefaultTableViewCell.self, forCellReuseIdentifier: DefaultTableViewCell.reuseIdentifier)
         
@@ -34,8 +34,11 @@ final class MainController: ViewController {
         
         setupNavigation()
         setupViews()
-        setupContent()
+        
+        viewModel.fetchData()
     }
+    
+    // MARK: - Setup
     
     private func setupNavigation() {
         largeNavigationTitle = true
@@ -71,8 +74,14 @@ final class MainController: ViewController {
         )
     }
     
+    // MARK: - Actions
+    
     @objc
     private func addTemplate() {
+        viewModel.createMock()
+    }
+    
+    private func openEditStudent(model: StudentModel) {
         print(#function)
     }
 }
@@ -88,15 +97,7 @@ extension MainController: UITableViewDelegate {
         guard let sectionKind = dataSource.sectionIdentifier(for: section) else { return nil }
         
         let header = MainHeaderView()
-        
-        switch sectionKind {
-        case .pinned:
-            header.titleLabel.text = "Закрепленное"
-        case .groups:
-            header.titleLabel.text = "Группы"
-        case .individuals:
-            header.titleLabel.text = "Индивидуалы"
-        }
+        header.titleLabel.text = sectionKind.headerTitle
         
         return header
     }
@@ -120,35 +121,15 @@ extension MainController: UITableViewDelegate {
         case .pinned:
             return .init(actions: [
                 .init(image: .init(systemName: "pin.slash"), backgroundColor: .systemBlue) { [weak self] _, _, completion in
-                    guard let self else { return }
-                    
-                    viewModel.pinnedRows.remove(at: indexPath.row)
-                    setupContent()
-                    
+                    self?.viewModel.updatePin(false, model: model)
                     completion(true)
                 },
             ])
-        case .groups:
+        case .groups,
+             .individuals:
             return .init(actions: [
                 .init(image: .init(systemName: "pin"), backgroundColor: .systemBlue) { [weak self] _, _, completion in
-                    guard let self else { return }
-                    
-                    let data = viewModel.groupRows.remove(at: indexPath.row)
-                    viewModel.pinnedRows.append(data)
-                    setupContent()
-                    
-                    completion(true)
-                },
-            ])
-        case .individuals:
-            return .init(actions: [
-                .init(image: .init(systemName: "pin"), backgroundColor: .systemBlue) { [weak self] _, _, completion in
-                    guard let self else { return }
-                    
-                    let data = viewModel.individualRows.remove(at: indexPath.row)
-                    viewModel.pinnedRows.append(data)
-                    setupContent()
-                    
+                    self?.viewModel.updatePin(true, model: model)
                     completion(true)
                 },
             ])
@@ -164,35 +145,18 @@ extension MainController: UITableViewDelegate {
               case .item(let model) = cell else { return nil }
         
         switch sectionKind {
-        case .pinned:
+        case .pinned,
+             .groups,
+             .individuals:
             return .init(actions: [
                 .init(image: .init(systemName: "trash"), style: .destructive) { [weak self] _, _, completion in
-                    self?.viewModel.pinnedRows.remove(at: indexPath.row)
-                    self?.setupContent()
-                    
+                    self?.viewModel.deleteStudent(model: model)
                     completion(true)
                 },
-                .init(image: .init(systemName: "pencil.line"), backgroundColor: .systemOrange) { [weak self] _, _, _ in },
-            ])
-        case .groups:
-            return .init(actions: [
-                .init(image: .init(systemName: "trash"), style: .destructive) { [weak self] _, _, completion in
-                    self?.viewModel.groupRows.remove(at: indexPath.row)
-                    self?.setupContent()
-                    
+                .init(image: .init(systemName: "pencil.line"), backgroundColor: .systemOrange) { [weak self] _, _, completion in
+                    self?.openEditStudent(model: model)
                     completion(true)
                 },
-                .init(image: .init(systemName: "pencil.line"), backgroundColor: .systemOrange) { [weak self] _, _, _ in },
-            ])
-        case .individuals:
-            return .init(actions: [
-                .init(image: .init(systemName: "trash"), style: .destructive) { [weak self] _, _, completion in
-                    self?.viewModel.individualRows.remove(at: indexPath.row)
-                    self?.setupContent()
-                    
-                    completion(true)
-                },
-                .init(image: .init(systemName: "pencil.line"), backgroundColor: .systemOrange) { [weak self] _, _, _ in },
             ])
         }
     }
